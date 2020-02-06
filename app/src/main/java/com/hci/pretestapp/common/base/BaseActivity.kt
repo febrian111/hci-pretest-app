@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.hci.pretestapp.common.util.ProgressDialog
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -31,10 +32,13 @@ abstract class BaseActivity<VM : ViewModelType> :
 
     protected val compositeDisposable = CompositeDisposable()
 
+    private var loadingProgressDialog: ProgressDialog? = null
+
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        loadingProgressDialog = ProgressDialog.buildProgressDialog(this)
     }
 
     @CallSuper
@@ -48,6 +52,9 @@ abstract class BaseActivity<VM : ViewModelType> :
     protected fun displayToast(message: String?) {
         Toast.makeText(this, "$message", Toast.LENGTH_SHORT).show()
     }
+
+    fun switchProgressDialogState(isShowing: Boolean) =
+        loadingProgressDialog?.apply { if (isShowing) show() else dismiss() }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         item?.let {
