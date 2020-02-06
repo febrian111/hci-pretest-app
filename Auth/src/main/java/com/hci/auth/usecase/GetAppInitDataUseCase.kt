@@ -1,6 +1,5 @@
 package com.hci.auth.usecase
 
-import com.hci.auth.model.ProductModel
 import com.hci.auth.model.SectionModel
 import com.hci.auth.repository.AuthRepository
 import com.hci.kit.base.UseCase

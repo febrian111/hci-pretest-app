@@ -1,7 +1,6 @@
 package com.hci.pretestapp.common.base
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
@@ -55,13 +54,4 @@ abstract class BaseActivity<VM : ViewModelType> :
 
     fun switchProgressDialogState(isShowing: Boolean) =
         loadingProgressDialog?.apply { if (isShowing) show() else dismiss() }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            when (it.itemId) {
-                android.R.id.home -> onBackPressed()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }

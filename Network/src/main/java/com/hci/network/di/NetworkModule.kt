@@ -1,12 +1,11 @@
-package com.fbr.trendinggithub.network.di
+package com.hci.network.di
 
 import com.hci.data.auth.repository.AuthService
-import com.hci.network.extension.defaultBuilder
 import com.hci.kit.constant.TagInjectConstant
 import com.hci.network.auth.AuthServiceImpl
+import com.hci.network.extension.defaultBuilder
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

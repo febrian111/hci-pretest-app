@@ -8,24 +8,21 @@ import com.hci.pretestapp.home.ArticleSectionLableItemViewModel
 import com.mikepenz.fastadapter.items.AbstractItem
 
 
-/**
- * Created by febriansyah on 2020-02-06.
- */
-
-class SectionLabelListItem(val viewModel: ArticleSectionLableItemViewModel)
-    : AbstractItem<SectionLabelListItem, SectionLabelListItem.VieHolder>() {
+class SectionLabelListItem(private var viewModel: ArticleSectionLableItemViewModel) :
+    AbstractItem<SectionLabelListItem, SectionLabelListItem.ViewHolder>(){
 
     override fun getType(): Int = hashCode()
 
-    override fun getViewHolder(v: View): VieHolder = VieHolder(v)
+    override fun getViewHolder(v: View): ViewHolder = ViewHolder(v)
 
     override fun getLayoutRes(): Int = R.layout.list_item_menu_section_title
 
-    override fun unbindView(holder: VieHolder) {
-        super.unbindView(holder)
+    override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
+        super.bindView(holder, payloads)
         holder.binding.viewmodel = viewModel
+        holder.binding.executePendingBindings()
     }
 
-    class VieHolder(view: View)
-        : BindableListItemViewHolder<ListItemMenuSectionTitleBinding>(view)
+    class ViewHolder(itemView: View) :
+        BindableListItemViewHolder<ListItemMenuSectionTitleBinding>(itemView)
 }

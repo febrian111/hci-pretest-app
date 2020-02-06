@@ -3,7 +3,10 @@ package com.hci.pretestapp.staticpage
 import android.annotation.SuppressLint
 import android.net.http.SslError
 import android.os.Bundle
-import android.webkit.*
+import android.webkit.SslErrorHandler
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import asia.digiasia.kaspro.staticpage.StaticPageViewModelType
 import com.hci.pretestapp.R
 import com.hci.pretestapp.common.base.BaseActivity

@@ -1,7 +1,7 @@
 package com.hci.pretestapp.common.di
 
 import android.app.Application
-import com.fbr.trendinggithub.network.di.NetworkModule
+import com.hci.network.di.NetworkModule
 import com.hci.data.di.DataModule
 import com.hci.pretestapp.MyApplication
 import dagger.BindsInstance
