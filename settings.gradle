@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':Kit', ':Data', ':Auth', ':network', ':Network'
 rootProject.name='Pretest App'

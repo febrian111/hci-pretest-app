@@ -87,4 +87,8 @@ dependencies {
 
     testImplementation testDependencies.jUnit
     androidTestImplementation testDependencies.androidTestRunner
+
+    implementation project(':Kit')
+    implementation project(':Network')
+    implementation project(':Data')
 }

@@ -19,10 +19,11 @@ class NetworkModule {
     @Singleton
     @Named(TagInjectConstant.RETROFIT)
     fun provideRetrofit(
-        @Named(TagInjectConstant.OKHTTP) okHttpClient: OkHttpClient)
+        @Named(TagInjectConstant.OKHTTP) okHttpClient: OkHttpClient,
+        @Named(TagInjectConstant.APP_INIT_URL_KASPRO) baseUrl: String)
             : Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://github-trending-api.now.sh/")
+            .baseUrl(baseUrl)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -32,12 +33,9 @@ class NetworkModule {
     @Provides
     @Singleton
     @Named(TagInjectConstant.OKHTTP)
-    fun provideOkHttpClient(
-        @Named(TagInjectConstant.CONNECTIVITY_INTERCEPTOR) connectivityInterceptor: Interceptor
-    ): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .defaultBuilder()
-            .addInterceptor(connectivityInterceptor)
             .build()
     }
 }

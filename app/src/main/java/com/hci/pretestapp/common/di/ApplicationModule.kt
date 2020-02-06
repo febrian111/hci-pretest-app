@@ -1,6 +1,8 @@
 package com.hci.pretestapp.common.di
 
 import android.app.Application
+import com.hci.kit.constant.TagInjectConstant
+import com.hci.pretestapp.BuildConfig
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -18,4 +20,18 @@ import javax.inject.Singleton
 
 @Module
 class ApplicationModule {
+
+    @Provides
+    @Named(TagInjectConstant.SCHEDULER_EXECUTION)
+    fun provideExecutionScheduler() = Schedulers.io()
+
+    @Provides
+    @Named(TagInjectConstant.SCHEDULER_POST_EXECUTION)
+    fun providePostExecutionScheduler(): Scheduler = AndroidSchedulers.mainThread()
+
+    @Provides
+    @Singleton
+    @Named(TagInjectConstant.APP_INIT_URL_KASPRO)
+    fun provideAppInitKasproUrl() = BuildConfig.base_url
+
 }
