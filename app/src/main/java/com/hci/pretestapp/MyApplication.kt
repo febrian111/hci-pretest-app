@@ -3,6 +3,7 @@ package com.hci.pretestapp
 import android.app.Activity
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.hci.pretestapp.common.di.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector

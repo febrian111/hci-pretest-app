@@ -1,6 +1,9 @@
 package com.hci.pretestapp.common.di
 
+import com.hci.pretestapp.home.HomeActivity
+import com.hci.pretestapp.home.HomeModule
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
 
 /**
@@ -8,5 +11,8 @@ import dagger.Module
  */
 
 @Module
-class BuilderModule {
+abstract class BuilderModule {
+
+    @ContributesAndroidInjector(modules = [(HomeModule::class)])
+    abstract fun bindHomeActivity(): HomeActivity
 }
