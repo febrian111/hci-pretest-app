@@ -5,6 +5,8 @@ import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hci.auth.model.ArticleModel
+import com.hci.auth.model.ProductModel
 import com.hci.kit.extension.disposedBy
 import com.hci.pretestapp.R
 import com.hci.pretestapp.common.base.BaseActivity
@@ -24,6 +26,8 @@ import javax.inject.Inject
  */
 class HomeActivity : BaseActivity<HomeViewModelType>() {
 
+    @Inject
+    lateinit var wireframe: HomeWireframe
     @Inject
     lateinit var productAdapter: FastItemAdapter<UnspecifiedTypeItem>
     @Inject
@@ -92,7 +96,17 @@ class HomeActivity : BaseActivity<HomeViewModelType>() {
 
     private fun populateProductItems(itemViewModels: List<ProductItemViewModel>) {
         val newItems: List<UnspecifiedTypeItem> = itemViewModels.map {
-            return@map ProductListItem(it)
+            return@map ProductListItem(
+                viewModel = it,
+                listener = object : ProductListItem.EventListener{
+                    override fun onClickProduct(product: ProductModel) {
+                        wireframe.openStaticPage(
+                            source = this@HomeActivity,
+                            title = product.productName,
+                            url = product.link)
+                    }
+
+                })
         }
         productAdapter.performUpdates(newItems)
     }
@@ -104,8 +118,11 @@ class HomeActivity : BaseActivity<HomeViewModelType>() {
                 is ArticleItemViewModel -> ArticleListItem(
                     viewModel = it,
                     listener = object : ArticleListItem.EventListener {
-                        override fun onClickRepo(srcImage: Int) {
-                            //open static page
+                        override fun onClickArticle(article: ArticleModel) {
+                            wireframe.openStaticPage(
+                                source = this@HomeActivity,
+                                title = article.articleTitle,
+                                url = article.link)
                         }
                     }
                 )

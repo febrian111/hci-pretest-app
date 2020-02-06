@@ -24,4 +24,7 @@ class HomeModule {
     fun provideHomeMenuRecyclerViewAdapter(): FastItemAdapter<IItem<*, *>> {
         return FastItemAdapter()
     }
+
+    @Provides
+    fun provideWireframe(): HomeWireframe = HomeWireframe()
 }

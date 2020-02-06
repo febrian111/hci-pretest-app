@@ -1,6 +1,7 @@
 package com.hci.pretestapp.home.listitems
 
 import android.view.View
+import com.hci.auth.model.ArticleModel
 import com.hci.pretestapp.R
 import com.hci.pretestapp.common.base.BindableListItemViewHolder
 import com.hci.pretestapp.databinding.ListItemMenuArticleBinding
@@ -9,6 +10,8 @@ import com.mikepenz.fastadapter.items.AbstractItem
 
 class ArticleListItem(var viewModel: ArticleItemViewModel, val listener: EventListener) :
     AbstractItem<ArticleListItem, ArticleListItem.ViewHolder>(){
+
+    private val clickListener = View.OnClickListener { listener.onClickArticle(viewModel.article) }
 
     override fun getType(): Int = hashCode()
 
@@ -20,12 +23,14 @@ class ArticleListItem(var viewModel: ArticleItemViewModel, val listener: EventLi
         super.bindView(holder, payloads)
         holder.binding.viewmodel = viewModel
         holder.binding.executePendingBindings()
+
+        holder.itemView.setOnClickListener(clickListener)
     }
 
     class ViewHolder(itemView: View) :
         BindableListItemViewHolder<ListItemMenuArticleBinding>(itemView)
 
     interface EventListener{
-        fun onClickRepo(srcImage: Int)
+        fun onClickArticle(article: ArticleModel)
     }
 }

@@ -1,6 +1,7 @@
 package com.hci.pretestapp.home.listitems
 
 import android.view.View
+import com.hci.auth.model.ProductModel
 import com.hci.pretestapp.R
 import com.hci.pretestapp.common.base.BindableListItemViewHolder
 import com.hci.pretestapp.databinding.ListItemMenuProductBinding
@@ -8,8 +9,10 @@ import com.hci.pretestapp.home.ProductItemViewModel
 import com.mikepenz.fastadapter.items.AbstractItem
 
 
-class ProductListItem(val viewModel: ProductItemViewModel)
+class ProductListItem(val viewModel: ProductItemViewModel, val listener: EventListener)
     : AbstractItem<ProductListItem, ProductListItem.ViewHolder>() {
+
+    private val clickListener = View.OnClickListener { listener.onClickProduct(viewModel.product) }
 
     override fun getType(): Int = hashCode()
 
@@ -21,7 +24,13 @@ class ProductListItem(val viewModel: ProductItemViewModel)
         super.bindView(holder, payloads)
         holder.binding.viewmodel = viewModel
         holder.binding.executePendingBindings()
+
+        holder.itemView.setOnClickListener(clickListener)
     }
 
     class ViewHolder(view: View) : BindableListItemViewHolder<ListItemMenuProductBinding>(view)
+
+    interface EventListener {
+        fun onClickProduct(product: ProductModel)
+    }
 }
