@@ -1,7 +1,6 @@
 package com.hci.pretestapp.home
 
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.mikepenz.fastadapter.IItem
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import dagger.Module

@@ -15,6 +15,11 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="TextToolbar" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@android:color/primary_text_dark</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
     <style name="TextRegular">
         <item name="android:fontFamily">@font/font_sfpro_regular</item>
     </style>
