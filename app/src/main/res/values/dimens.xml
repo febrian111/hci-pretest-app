@@ -1,0 +1,20 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!--Padding-->
+    <dimen name="padding_smaller">2dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_larger">24dp</dimen>
+    <dimen name="padding_largest">32dp</dimen>
+
+    <!--Margin-->
+    <dimen name="margin_largest">32dp</dimen>
+    <dimen name="margin_larger">24dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_smallest">2dp</dimen>
+    <dimen name="margin_smaller">2dp</dimen>
+</resources>

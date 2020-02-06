@@ -1,3 +1,5 @@
 <resources>
-<string name="label_home_credit_idn">Home Credit Indonesia</string>
+    <string name="label_home_credit_idn">Home Credit Indonesia</string>
+    <string name="label_something_went_wrong">Something went wrong..</string>
+    <string name="action_retry">Retry</string>
 </resources>

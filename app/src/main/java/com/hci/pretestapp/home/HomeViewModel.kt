@@ -58,10 +58,13 @@ class HomeViewModel(private val getAppInitDataUseCase: GetAppInitDataUseCase) : 
 
     inner class DataInitObserver : DisposableSingleObserver<SectionModel>() {
         override fun onSuccess(t: SectionModel) {
+            showErrorPageSubject.onNext(false)
             progressBarSubject.onNext(false)
         }
 
         override fun onError(e: Throwable) {
+            e.printStackTrace()
+            showErrorPageSubject.onNext(true)
             progressBarSubject.onNext(false)
         }
 

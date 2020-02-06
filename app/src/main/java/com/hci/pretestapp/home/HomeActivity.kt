@@ -1,9 +1,11 @@
 package com.hci.pretestapp.home
 
 import android.os.Bundle
+import android.view.View
 import com.hci.kit.extension.disposedBy
 import com.hci.pretestapp.R
 import com.hci.pretestapp.common.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_home.*
 
 
@@ -29,12 +31,22 @@ class HomeActivity : BaseActivity<HomeViewModelType>(){
     }
 
     private fun bindViewEvent() {
-
+        actionRetry.setOnClickListener {
+            viewModel.inputs.onViewLoaded()
+            wrapperErrorPage.visibility = View.GONE
+        }
     }
 
     private fun bindViewModel() {
         viewModel.outputs.showProgressBar
             .subscribe { switchProgressDialogState(it) }
+            .disposedBy(compositeDisposable)
+
+        viewModel.outputs.showErrorPage
+            .map { if (it) View.VISIBLE else View.GONE }
+            .subscribe {
+                wrapperErrorPage.visibility = it
+            }
             .disposedBy(compositeDisposable)
     }
 }
