@@ -10,7 +10,7 @@ android {
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
 
-        buildConfigField "String", "base_url", "https://private-a8e48-hcidtest.apiary-mock.com/"
+        buildConfigField "String", "base_url", baseUrl
     }
 
     productFlavors {
