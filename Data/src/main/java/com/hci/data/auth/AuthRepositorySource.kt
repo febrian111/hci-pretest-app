@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class AuthRepositorySource
 @Inject constructor(private val factory: AuthDataSource.Factory) : AuthRepository {
-    override fun getAppInitData(): Single<SectionModel> {
+    override fun getAppInitData(): Single<List<SectionModel>> {
         return factory.network().getAppInitData()
     }
 }

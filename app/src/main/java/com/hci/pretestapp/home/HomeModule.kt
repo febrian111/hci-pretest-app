@@ -2,6 +2,8 @@ package com.hci.pretestapp.home
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.mikepenz.fastadapter.IItem
+import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import dagger.Module
 import dagger.Provides
 
@@ -17,5 +19,10 @@ class HomeModule {
     fun provideViewModel(activity: HomeActivity, factory: HomeViewModel.Factory):
             HomeViewModelType {
         return ViewModelProvider(activity, factory).get(HomeViewModel::class.java)
+    }
+
+    @Provides
+    fun provideHomeMenuRecyclerViewAdapter(): FastItemAdapter<IItem<*, *>> {
+        return FastItemAdapter()
     }
 }

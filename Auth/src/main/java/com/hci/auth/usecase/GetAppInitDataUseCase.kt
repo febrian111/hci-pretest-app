@@ -14,8 +14,8 @@ class GetAppInitDataUseCase
 @Inject constructor(private val repository: AuthRepository,
                     @Named(TagInjectConstant.SCHEDULER_EXECUTION) threadExecutor: Scheduler,
                     @Named(TagInjectConstant.SCHEDULER_POST_EXECUTION) postExecutionThread: Scheduler
-) : UseCase.RxSingle<SectionModel, Unit>(threadExecutor, postExecutionThread){
-    override fun build(params: Unit?): Single<SectionModel> {
+) : UseCase.RxSingle<List<SectionModel>, Unit>(threadExecutor, postExecutionThread){
+    override fun build(params: Unit?): Single<List<SectionModel>> {
         return repository.getAppInitData()
     }
 }

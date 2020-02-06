@@ -20,7 +20,7 @@ interface AuthDataSource : AuthRepository {
 
     class Network
     @Inject constructor(private val service: AuthService) : AuthDataSource{
-        override fun getAppInitData(): Single<SectionModel> {
+        override fun getAppInitData(): Single<List<SectionModel>> {
             return service.getAppInitData().map { it.create() }
         }
     }

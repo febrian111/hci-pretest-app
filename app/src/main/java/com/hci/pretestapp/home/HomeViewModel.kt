@@ -27,6 +27,7 @@ interface HomeViewModelType : ViewModelType {
         val showDialogMessage: Observable<Any>
         val showProgressBar: Observable<Boolean>
         val showErrorPage: Observable<Boolean>
+        val shouldUpdateProductMenus: Observable<List<ProductItemViewModel>>
     }
 }
 
@@ -38,6 +39,7 @@ class HomeViewModel(private val getAppInitDataUseCase: GetAppInitDataUseCase) : 
     private val showDialogMessageSubject = PublishSubject.create<Any>()
     private val progressBarSubject = PublishSubject.create<Boolean>()
     private val showErrorPageSubject = PublishSubject.create<Boolean>()
+    private val updateProductMenusSubject = PublishSubject.create<List<ProductItemViewModel>>()
 
     override val inputs: HomeViewModelType.Inputs
         get() = this
@@ -50,16 +52,24 @@ class HomeViewModel(private val getAppInitDataUseCase: GetAppInitDataUseCase) : 
         get() = progressBarSubject
     override val showErrorPage: Observable<Boolean>
         get() = showErrorPageSubject
+    override val shouldUpdateProductMenus: Observable<List<ProductItemViewModel>>
+        get() = updateProductMenusSubject
 
     override fun onViewLoaded() {
         progressBarSubject.onNext(true)
         getAppInitDataUseCase.execute(DataInitObserver())
     }
 
-    inner class DataInitObserver : DisposableSingleObserver<SectionModel>() {
-        override fun onSuccess(t: SectionModel) {
+    inner class DataInitObserver : DisposableSingleObserver<List<SectionModel>>() {
+        override fun onSuccess(t: List<SectionModel>) {
             showErrorPageSubject.onNext(false)
             progressBarSubject.onNext(false)
+            t.map {
+                when {
+                    it.products.isNotEmpty() ->
+                        updateProductMenusSubject.onNext(ProductItemViewModel.create(it.products))
+                }
+            }
         }
 
         override fun onError(e: Throwable) {
