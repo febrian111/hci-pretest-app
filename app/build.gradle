@@ -89,6 +89,5 @@ dependencies {
     androidTestImplementation testDependencies.androidTestRunner
 
     implementation project(':Kit')
-    implementation project(':Network')
     implementation project(':Data')
 }
