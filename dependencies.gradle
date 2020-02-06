@@ -1,0 +1,94 @@
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+}
+
+ext {
+    androidMinSdkVersion = 16
+    androidTargetSdkVersion = 29
+    androidCompileSdkVersion = 29
+    buildToolsVersion = "29.0.2"
+    flavorDimensions = "default"
+
+    //region Flavours
+    developmentFlavorsConfig = [
+            applicationId : "com.hci.pretestapp.dev",
+            versionCode : 1,
+            versionName : "1.0.0",
+            minSdkVersion : androidMinSdkVersion,
+            dimension : flavorDimensions
+    ]
+
+    productionFlavorsConfig = [
+            applicationId : "com.hci.pretestapp",
+            versionCode : 1,
+            versionName : "1.0.0",
+            dimension : flavorDimensions
+    ]
+    //endregion
+
+    daggerVersion = "2.18"
+    androidSupportVersion = "28.0.0"
+    androidXCompatVersion = "1.1.0"
+    constraintLayoutVersion = "1.1.3"
+    rxKotlinVersion = "2.3.0"
+    rxAndroidVersion = "2.1.1"
+//    rxBindingVersion = "2.2.0"
+    androidLifecycleVersion = "2.2.0"
+    retrofitVersion = "2.5.0"
+    okHttpVersion = "3.12.0"
+    javaXAnnotationVersion = "1.0"
+    javaxInject = "1"
+    gsonVersion = "2.8.2"
+    glideVersion = "4.9.0"
+    fastAdapterVersion = "3.2.9"
+
+    jUnitVersion = "4.12"
+    androidTestRunnerVersion = "1.1.0"
+
+    //region App Dependencies
+    appDependencies = [
+            dagger                : "com.google.dagger:dagger:${daggerVersion}",
+            daggerAndroid         : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerCompiler        : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            androidXCompat        : "androidx.appcompat:appcompat:${androidXCompatVersion}",
+            supportDesign         : "com.android.support:design:${androidSupportVersion}",
+            supportCoreUtils      : "com.android.support:support-core-utils:${androidSupportVersion}",
+            supportAnnotations    : "com.android.support:support-annotations:${androidSupportVersion}",
+            supportUtils          : "com.android.support:support-utils:${androidSupportVersion}",
+            supportCompat         : "com.android.support:support-compat:${androidSupportVersion}",
+            recyclerView          : "com.android.support:recyclerview-v7:${androidSupportVersion}",
+            cardView              : "com.android.support:cardview-v7:${androidSupportVersion}",
+            constraintLayout      : "androidx.constraintlayout:constraintlayout:${constraintLayoutVersion}",
+            rxJavaExclude         : "exclude group: 'io.reactivex.rxjava2'",
+            rxKotlin              : "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}",
+            rxAndroid             : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+//            rxBinding             : "com.jakewharton.rxbinding2:rxbinding-kotlin:${rxBindingVersion}",
+            lifeCycleExtensions   : "androidx.lifecycle:lifecycle-extensions:${androidLifecycleVersion}",
+            lifeCycleStreams      : "androidx.lifecycle:lifecycle-reactivestreams:${androidLifecycleVersion}",
+            lifeCycleCompiler     : "androidx.lifecycle:lifecycle-compiler:${androidLifecycleVersion}",
+            retrofit              : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            okHttpLogging         : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
+            retrofitGsonConverter : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            retrofitRxJava2Adapter: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            javaxAnnotation       : "javax.annotation:jsr250-api:${javaXAnnotationVersion}",
+            javaxInject           : "javax.inject:javax.inject:${javaxInject}",
+            gson                  : "com.google.code.gson:gson:${gsonVersion}",
+            glide                 : "com.github.bumptech.glide:glide:${glideVersion}",
+            glideCompiler         : "com.github.bumptech.glide:compiler:${glideVersion}",
+            fastAdapter           : "com.mikepenz:fastadapter:${fastAdapterVersion}@aar",
+            fastAdapterCommons    : "com.mikepenz:fastadapter-commons:${fastAdapterVersion}@aar",
+            fastAdapterExtension  : "com.mikepenz:fastadapter-extensions:${fastAdapterVersion}@aar"
+    ]
+
+    //region Test Dependencies
+    testDependencies = [
+            jUnit            : "junit:junit:${jUnitVersion}",
+            androidTestRunner: "androidx.test.ext:junit:${androidTestRunnerVersion}"
+    ]
+    //endregion
+}

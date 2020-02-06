@@ -1,0 +1,45 @@
+def globalConfiguration = rootProject.extensions.getByName("ext")
+
+android {
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+    buildToolsVersion globalConfiguration["buildToolsVersion"]
+    flavorDimensions globalConfiguration["flavorDimensions"]
+
+    defaultConfig {
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+
+        buildConfigField "String", "base_url", "https://private-a8e48-hcidtest.apiary-mock.com/"
+    }
+
+    productFlavors {
+        development {
+            def developmentFlavorsConfig = globalConfiguration["developmentFlavorsConfig"]
+            versionCode developmentFlavorsConfig.versionCode
+            versionName developmentFlavorsConfig.versionName
+            dimension developmentFlavorsConfig.dimension
+
+            resValue "string", "app_name", developmentAppName
+
+            buildConfigField 'String', 'APP_BUILD_TYPE', developmentAppBuildType
+        }
+
+        production {
+            def productionFlavorsConfig = globalConfiguration["productionFlavorsConfig"]
+            versionCode productionFlavorsConfig.versionCode
+            versionName productionFlavorsConfig.versionName
+            dimension productionFlavorsConfig.dimension
+
+            resValue "string", "app_name", productionAppName
+
+            buildConfigField 'String', 'APP_BUILD_TYPE', productionAppBuildType
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
