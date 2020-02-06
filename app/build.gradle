@@ -90,4 +90,6 @@ dependencies {
 
     implementation project(':Kit')
     implementation project(':Data')
+    implementation project(':Network')
+    implementation project(':Auth')
 }

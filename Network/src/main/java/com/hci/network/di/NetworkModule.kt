@@ -1,7 +1,9 @@
 package com.fbr.trendinggithub.network.di
 
+import com.hci.data.auth.repository.AuthService
 import com.hci.network.extension.defaultBuilder
 import com.hci.kit.constant.TagInjectConstant
+import com.hci.network.auth.AuthServiceImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -37,5 +39,13 @@ class NetworkModule {
         return OkHttpClient.Builder()
             .defaultBuilder()
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthService(
+        @Named(TagInjectConstant.RETROFIT) retrofit: Retrofit)
+            : AuthService {
+        return AuthServiceImpl(retrofit)
     }
 }

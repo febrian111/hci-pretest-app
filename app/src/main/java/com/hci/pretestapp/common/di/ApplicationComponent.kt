@@ -1,6 +1,8 @@
 package com.hci.pretestapp.common.di
 
 import android.app.Application
+import com.fbr.trendinggithub.network.di.NetworkModule
+import com.hci.data.di.DataModule
 import com.hci.pretestapp.MyApplication
 import dagger.BindsInstance
 import dagger.Component
@@ -14,11 +16,15 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [
-    (AndroidSupportInjectionModule::class),
-    (BuilderModule::class),
-    (ApplicationModule::class)
-])
+@Component(
+    modules = [
+        (AndroidSupportInjectionModule::class),
+        (BuilderModule::class),
+        (ApplicationModule::class),
+        (NetworkModule::class),
+        (DataModule::class)
+    ]
+)
 interface ApplicationComponent {
     @Component.Builder
     interface Builder {

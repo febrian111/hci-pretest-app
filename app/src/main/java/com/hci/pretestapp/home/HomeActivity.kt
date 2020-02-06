@@ -1,6 +1,7 @@
 package com.hci.pretestapp.home
 
 import android.os.Bundle
+import com.hci.kit.extension.disposedBy
 import com.hci.pretestapp.R
 import com.hci.pretestapp.common.base.BaseActivity
 import kotlinx.android.synthetic.main.toolbar_home.*
@@ -32,6 +33,8 @@ class HomeActivity : BaseActivity<HomeViewModelType>(){
     }
 
     private fun bindViewModel() {
-
+        viewModel.outputs.showProgressBar
+            .subscribe { switchProgressDialogState(it) }
+            .disposedBy(compositeDisposable)
     }
 }

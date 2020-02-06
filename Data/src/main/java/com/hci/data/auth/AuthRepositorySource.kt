@@ -7,9 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 
-/**
- * Created by febriansyah on 2020-02-06.
- */
+
 class AuthRepositorySource
 @Inject constructor(private val factory: AuthDataSource.Factory) : AuthRepository {
     override fun getAppInitData(): Single<SectionModel> {

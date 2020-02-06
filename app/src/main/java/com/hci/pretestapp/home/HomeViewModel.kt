@@ -2,8 +2,11 @@ package com.hci.pretestapp.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.hci.auth.model.SectionModel
+import com.hci.auth.usecase.GetAppInitDataUseCase
 import com.hci.pretestapp.common.base.ViewModelType
 import io.reactivex.Observable
+import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
@@ -27,7 +30,7 @@ interface HomeViewModelType : ViewModelType {
     }
 }
 
-class HomeViewModel : ViewModel(),
+class HomeViewModel(private val getAppInitDataUseCase: GetAppInitDataUseCase) : ViewModel(),
     HomeViewModelType,
     HomeViewModelType.Inputs,
     HomeViewModelType.Outputs {
@@ -49,15 +52,27 @@ class HomeViewModel : ViewModel(),
         get() = showErrorPageSubject
 
     override fun onViewLoaded() {
+        progressBarSubject.onNext(true)
+        getAppInitDataUseCase.execute(DataInitObserver())
+    }
+
+    inner class DataInitObserver : DisposableSingleObserver<SectionModel>() {
+        override fun onSuccess(t: SectionModel) {
+            progressBarSubject.onNext(false)
+        }
+
+        override fun onError(e: Throwable) {
+            progressBarSubject.onNext(false)
+        }
 
     }
 
     @Suppress("UNCHECKED_CAST")
     class Factory
-    @Inject constructor() : ViewModelProvider.Factory {
+    @Inject constructor(private val getAppInitDataUseCase: GetAppInitDataUseCase) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(HomeViewModel::class.java)){
-                return HomeViewModel() as T
+                return HomeViewModel(getAppInitDataUseCase) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
