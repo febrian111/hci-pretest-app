@@ -10,7 +10,9 @@ import com.hci.pretestapp.R
 import com.hci.pretestapp.common.base.BaseActivity
 import com.hci.pretestapp.common.extension.UnspecifiedTypeItem
 import com.hci.pretestapp.common.extension.performUpdates
+import com.hci.pretestapp.home.listitems.ArticleListItem
 import com.hci.pretestapp.home.listitems.ProductListItem
+import com.hci.pretestapp.home.listitems.SectionLabelListItem
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar_home.*
@@ -20,7 +22,7 @@ import javax.inject.Inject
 /**
  * Created by febriansyah on 2020-02-06.
  */
-class HomeActivity : BaseActivity<HomeViewModelType>(){
+class HomeActivity : BaseActivity<HomeViewModelType>() {
 
     @Inject
     lateinit var productAdapter: FastItemAdapter<UnspecifiedTypeItem>
@@ -43,7 +45,8 @@ class HomeActivity : BaseActivity<HomeViewModelType>(){
 
         menuProduct.run {
             adapter = productAdapter
-            layoutManager = GridLayoutManager(this@HomeActivity, 3, GridLayoutManager.VERTICAL, false)
+            layoutManager =
+                GridLayoutManager(this@HomeActivity, 3, GridLayoutManager.VERTICAL, false)
             itemAnimator = null
         }
 
@@ -79,6 +82,12 @@ class HomeActivity : BaseActivity<HomeViewModelType>(){
                 populateProductItems(it)
             }
             .disposedBy(compositeDisposable)
+
+        viewModel.outputs.shouldUpdateArticleMenus
+            .subscribe {
+                populateArticleItems(it)
+            }
+            .disposedBy(compositeDisposable)
     }
 
     private fun populateProductItems(itemViewModels: List<ProductItemViewModel>) {
@@ -86,5 +95,22 @@ class HomeActivity : BaseActivity<HomeViewModelType>(){
             return@map ProductListItem(it)
         }
         productAdapter.performUpdates(newItems)
+    }
+
+    private fun populateArticleItems(itemViewModels: List<ArticleItemViewModelType>) {
+        val newItems: List<UnspecifiedTypeItem> = itemViewModels.map {
+            return@map when (it) {
+                is ArticleSectionLableItemViewModel -> SectionLabelListItem(it)
+                is ArticleItemViewModel -> ArticleListItem(
+                    viewModel = it,
+                    listener = object : ArticleListItem.EventListener {
+                        override fun onClickRepo(srcImage: Int) {
+                            //open static page
+                        }
+                    }
+                )
+            }
+        }
+        articleAdapter.performUpdates(newItems)
     }
 }

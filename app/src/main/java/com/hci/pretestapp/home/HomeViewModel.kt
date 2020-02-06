@@ -28,6 +28,7 @@ interface HomeViewModelType : ViewModelType {
         val showProgressBar: Observable<Boolean>
         val showErrorPage: Observable<Boolean>
         val shouldUpdateProductMenus: Observable<List<ProductItemViewModel>>
+        val shouldUpdateArticleMenus: Observable<List<ArticleItemViewModelType>>
     }
 }
 
@@ -40,6 +41,7 @@ class HomeViewModel(private val getAppInitDataUseCase: GetAppInitDataUseCase) : 
     private val progressBarSubject = PublishSubject.create<Boolean>()
     private val showErrorPageSubject = PublishSubject.create<Boolean>()
     private val updateProductMenusSubject = PublishSubject.create<List<ProductItemViewModel>>()
+    private val updateArticleMenusSubject = PublishSubject.create<List<ArticleItemViewModelType>>()
 
     override val inputs: HomeViewModelType.Inputs
         get() = this
@@ -54,6 +56,8 @@ class HomeViewModel(private val getAppInitDataUseCase: GetAppInitDataUseCase) : 
         get() = showErrorPageSubject
     override val shouldUpdateProductMenus: Observable<List<ProductItemViewModel>>
         get() = updateProductMenusSubject
+    override val shouldUpdateArticleMenus: Observable<List<ArticleItemViewModelType>>
+        get() = updateArticleMenusSubject
 
     override fun onViewLoaded() {
         progressBarSubject.onNext(true)
@@ -68,6 +72,13 @@ class HomeViewModel(private val getAppInitDataUseCase: GetAppInitDataUseCase) : 
                 when {
                     it.products.isNotEmpty() ->
                         updateProductMenusSubject.onNext(ProductItemViewModel.create(it.products))
+                    it.articles.isNotEmpty() -> {
+                        val list = mutableListOf<ArticleItemViewModelType>().apply {
+                            add(ArticleSectionLableItemViewModel(it.sectionTitle))
+                            addAll(ArticleItemViewModel.create(it.articles))
+                        }
+                        updateArticleMenusSubject.onNext(list)
+                    }
                 }
             }
         }
